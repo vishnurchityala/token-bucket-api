@@ -34,5 +34,5 @@ def process_request(self, x):
         return f"Processed {x}"
 
     else:
-        logging.info(f"[Process] No tokens for {x}, retrying in...{2 ** self.request.retries}")
-        raise self.retry(countdown=2 ** self.request.retries)
+        logging.info(f"[Process] No tokens for {x}, retrying in...{2}")
+        raise self.retry(countdown=2)
