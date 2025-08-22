@@ -14,7 +14,7 @@ TIME_GAP = 10.0
 
 @app.on_after_configure.connect
 def periodic_token_add(sender,**kwargs):
-    sender.add_periodic_task(TIME_GAP, refill_tokens.s(), name="refill tokens every 1s")
+    sender.add_periodic_task(TIME_GAP, refill_tokens.s(), name="refill tokens every 10s")
 
 @app.task
 def refill_tokens():
@@ -34,5 +34,5 @@ def process_request(self, x):
         return f"Processed {x}"
 
     else:
-        logging.info(f"[Process] No tokens for {x}, retrying in 1s...")
+        logging.info(f"[Process] No tokens for {x}, retrying in...{2 ** self.request.retries}")
         raise self.retry(countdown=2 ** self.request.retries)
